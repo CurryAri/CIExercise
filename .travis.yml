@@ -5,7 +5,7 @@ before_install:
   - docker build -t curryari/tompencil .
 
 script:
-  - docker run -e CI=true --name testpencil curryari/tompencil
+  - docker run --name testpencil curryari/tompencil
   - docker exec testpencil curl localhost:80
 
 after_success:

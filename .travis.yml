@@ -6,6 +6,7 @@ before_install:
   - unzip awscliv2.zip
   - sudo ./aws/install
   - sudo mkdir .aws
+  - sudo chown -R travis:travis /home/travis
   - echo "[default]" > .aws/config
   - echo "aws_access_key_id = \$AWS_ACCESS_KEY_ID" >> .aws/config
   - echo "aws_secret_access_key = \$AWS_SECRET_ACCESS_KEY" >> .aws/config

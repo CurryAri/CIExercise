@@ -14,7 +14,7 @@ before_install:
 #  - echo "aws_secret_access_key = \$AWS_SECRET_ACCESS_KEY" >> .aws/config
 #  - echo "region = us-east-2" >> .aws/config
 #  - aws ssm help
-  - docker build -t curryari/tompencil:$SHA .
+  - docker build -t curryari/tompencil:latest curryari/tompencil:$SHA .
 
 script:
   - docker run -d --name testpencil curryari/tompencil:$SHA 
@@ -24,7 +24,8 @@ after_success:
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push curryari/tompencil
+  - docker push curryari/tompencil:$SHA
+  - docker push curryari/tompencil:latest
 
 deploy:
   provider: script

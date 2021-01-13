@@ -2,6 +2,16 @@ services:
   - docker
 
 before_install:
+  - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+  - unzip awscliv2.zip
+  - ./aws/install
+  - cat > .aws/config <<EOF
+[default]
+aws_access_key_id = $AWS_ACCESS_KEY_ID
+aws_secret_access_key = $AWS_SECRET_ACCESS_KEY
+region = us--east-2
+EOF
+  - aws ssm help
   - docker build -t curryari/tompencil .
 
 script:

@@ -4,7 +4,7 @@ services:
 before_install:
   - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
   - unzip awscliv2.zip
-  - ./aws/install
+  - sudo ./aws/install
   - sudo mkdir .aws
   - echo "[default]" > .aws/config
   - echo "aws_access_key_id = \$AWS_ACCESS_KEY_ID" >> .aws/config

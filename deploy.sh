@@ -10,8 +10,6 @@ aws configure set aws_secret_access_key \$AWS_SECRET_ACCESS_KEY
 #echo "aws_access_key_id = \$AWS_ACCESS_KEY_ID" >> .aws/config
 #echo "aws_secret_access_key = \$AWS_SECRET_ACCESS_KEY" >> .aws/config
 #echo "region = us-east-2" >> .aws/config
-aws ssm help
-
 cmdid=$(aws ssm send-command --instance-ids "i-02b253149b93a7776" --document-name "AWS-RunShellScript" --parameters commands="sudo kubectl set image deployments/nginx-deployment nginx=curryari/tompencil:$SHA" --query "Command.CommandId" --output text)
 aws ssm list-command-invocations --command-id "$cmdid" --details --query "CommandInvocations[*].CommandPlugins[*].Output[]" --output text
 #kubectl apply -f k8s

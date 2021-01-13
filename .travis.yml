@@ -1,21 +1,23 @@
 services:
   - docker
-
+env:
+  global:
+    -  SHA=$(git rev-parse HEAD)
 before_install:
-  - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-  - unzip awscliv2.zip
-  - sudo ./aws/install
-  - sudo mkdir .aws
-  - sudo chown -R travis:travis /home/travis
-  - echo "[default]" > .aws/config
-  - echo "aws_access_key_id = \$AWS_ACCESS_KEY_ID" >> .aws/config
-  - echo "aws_secret_access_key = \$AWS_SECRET_ACCESS_KEY" >> .aws/config
-  - echo "region = us-east-2" >> .aws/config
-  - aws ssm help
-  - docker build -t curryari/tompencil .
+#  - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+#  - unzip awscliv2.zip
+#  - sudo ./aws/install
+#  - sudo mkdir .aws
+#  - sudo chown -R travis:travis /home/travis
+#  - echo "[default]" > .aws/config
+#  - echo "aws_access_key_id = \$AWS_ACCESS_KEY_ID" >> .aws/config
+#  - echo "aws_secret_access_key = \$AWS_SECRET_ACCESS_KEY" >> .aws/config
+#  - echo "region = us-east-2" >> .aws/config
+#  - aws ssm help
+  - docker build -t curryari/tompencil:$SHA .
 
 script:
-  - docker run -d --name testpencil curryari/tompencil 
+  - docker run -d --name testpencil curryari/tompencil:$SHA 
   - docker exec testpencil curl localhost:80
 
 after_success:

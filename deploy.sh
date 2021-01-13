@@ -1,3 +1,4 @@
+echo "deploy script is running"
 cmdid=$(aws ssm send-command --instance-ids "i-02b253149b93a7776" --document-name "AWS-RunShellScript" --parameters commands="sudo kubectl set image deployments/nginx-deployment nginx=curryari/tompencil:$SHA" --query "Command.CommandId" --output text)
 aws ssm list-command-invocations --command-id "$cmdid" --details --query "CommandInvocations[*].CommandPlugins[*].Output[]" --output text
 #curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"

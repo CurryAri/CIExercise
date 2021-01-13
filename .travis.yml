@@ -14,7 +14,7 @@ before_install:
 #  - echo "aws_secret_access_key = \$AWS_SECRET_ACCESS_KEY" >> .aws/config
 #  - echo "region = us-east-2" >> .aws/config
 #  - aws ssm help
-  - docker build -t curryari/tompencil:latest curryari/tompencil:$SHA .
+  - docker build -t curryari/tompencil:latest -t curryari/tompencil:$SHA .
 
 script:
   - docker run -d --name testpencil curryari/tompencil:$SHA 
